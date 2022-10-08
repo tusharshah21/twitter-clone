@@ -1,6 +1,5 @@
-import React from 'react';
+import React,{forwardRef} from 'react';
 import "./Post.css";
-import pfp from "./Pfp.jpg";
 import Avatar from '@mui/material/Avatar';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -8,35 +7,28 @@ import RepeatIcon from '@mui/icons-material/Repeat';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PublishIcon from '@mui/icons-material/Publish';
 
-import Gif from "./gif.gif";
 
-export default function Post({
-    displayName,
-    username,
-    verified,
-    timestamp,
-    text,
-    image,
-    avatar}){
+const Post = forwardRef(({displayName,username,verified,text,image,avatar},ref)=>{
     return(
-        <div className="post">
+        <div className="post" ref={ref}>
         <div className="post_avatar">
-            <Avatar src={pfp}></Avatar>
+            <Avatar src={avatar}/>
         </div>
         <div className="post_body">
             <div className="post_header">
                 <div className="post_headerText">
                     <h3>
-                    Tushar Shah <span className="post_headerspecial">
-                      <VerifiedIcon className="post_badge"/> @tushar2107
+                    {displayName}{" "}
+                    <span className="post_headerspecial">
+                      {verified &&<VerifiedIcon className="post_badge"/>} @{username}
                     </span>
                     </h3>
                 </div>
                 <div className="post_headerdesc">
-                    <p>When you have to much in your mind to write but don't know how to write it.</p>
+                    <p>{text}</p>
                 </div>
             </div>
-            <img src={Gif} alt="giphy"/>
+            <img src={image}/>
             <div className="post_footer">
                 <ChatBubbleOutlineIcon fontsize="small"/>
                 <RepeatIcon fontsize="small"/>
@@ -46,5 +38,6 @@ export default function Post({
             </div>
         </div>
     );
+});
 
-}
+export default Post;
